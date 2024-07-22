@@ -113,18 +113,18 @@ analytics:
 
 # Site Author
 author:
-  name             : "Woorim Shin / 신우림"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  name             : "Woorim Shin"
+  avatar           : "/assets/images/bio-photo.jpg"
   bio              : "2024.7.22~"
-  location         : "Republic of Korea(South Korea) / 대한민국"
+  location         : "Republic of Korea"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:wrim0923@gmail.com"
     - label: "Linkedin"
-      icon: "fab fa-fw fa-linkedin-square"
-      url: "www.linkedin.com/in/woorim-shin-158098234"
+      icon: "fab fa-linkedin-in"
+      url: "www.linkedin.com/in/woorimshin"
     - label: "Naver Blog"
       icon: "fa-duotone fa-solid fa-pen-to-square"
       url: "https://blog.naver.com/woorim0923"
