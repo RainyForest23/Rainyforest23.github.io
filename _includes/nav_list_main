@@ -1,51 +1,95 @@
+{% assign sum = site.posts | size %}
+
 <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label }}</label>
   <ul class="nav__items" id="category_tag_menu">
-      <!--전체 글 수-->
       <li>
-          📂 전체 글 수: {{sum}} 개
+            📂 <span style="font-family:'MaruBury';">total </style> <span style="font-family:'Coming Soon';">{{sum}}</style> <span style="font-family:'Cafe24Oneprettynight';">posts</style> 
       </li>
-
-      <!--자료구조 섹션-->
       <li>
-        <span class="nav__sub-title">자료구조</span>
-        <ul>
-          {% for category in site.categories %}
-              {% if category[0] == "datastructure" %}
-                  <li><a href="/categories/datastructure">자료구조 ({{category[1].size}})</a></li>
-              {% endif %}
-          {% endfor %}
-        </ul>
-      </li>
+        <span class="nav__sub-title">Languages</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Java" %}
+                        <li><a href="/categories/java" class="">Java ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "C" %}
+                        <li><a href="/categories/c" class="">C({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 
-      <!--Test 섹션-->
-      <li>
-        <span class="nav__sub-title">Test</span>
-        <ul>
-          {% for category in site.categories %}
-              {% if category[0] == "test" %}
-                  <li><a href="/categories/test">Test ({{category[1].size}})</a></li>
-              {% endif %}
-          {% endfor %}
-        </ul>
-      </li>
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "DataStructure" %}
+                        <li><a href="/categories/datastructure" class="">자료구조 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Computer System" %}
+                        <li><a href="/categories/computersys" class="">컴퓨터구조({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 
-      <!--Coding Test 섹션-->
-      <li>
+        <span class="nav__sub-title">Web</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Html" %}
+                        <li><a href="/categories/html" class="">HTML ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "CSS" %}
+                        <li><a href="/categories/css" class="">CSS({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
         <span class="nav__sub-title">Coding Test</span>
-        <ul>
-          {% for category in site.categories %}
-              {% if category[0] == "Algorithm" %}
-                  <li><a href="/categories/algorithm">알고리즘 구현 (with C++) ({{category[1].size}})</a></li>
-              {% endif %}
-          {% endfor %}
-        </ul>
-        <ul>
-          {% for category in site.categories %}
-              {% if category[0] == "Programmers" %}
-                  <li><a href="/categories/programmers">프로그래머스 ({{category[1].size}})</a></li>
-              {% endif %}
-          {% endfor %}
-        </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Lc" %}
+                        <li><a href="/categories/leetcode" class="">Leetcode ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Bj" %}
+                        <li><a href="/categories/bj" class="">백준({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+        <span class="nav__sub-title">Test</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "test" %}
+                        <li><a href="/categories/test" class="">테스트용 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            
+        <span class="nav__sub-title">PJT</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Forest" %}
+                        <li><a href="/categories/forest" class="">SDIJ Forest ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            
       </li>
   </ul>
 </nav>
