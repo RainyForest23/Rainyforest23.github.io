@@ -1,11 +1,8 @@
 # main links
 main:
-main:
-  #- title: "Home"
-  #  url: "/"
   - title: "Introduce"
-    url: /about/
+    url: https://rainyforest23.github.io/intro/
   - title: "Category"
-    url: "/categories/"
-  - title: "Tags"
-    url: /tags/
+    url: https://rainyforest23.github.io/category/
+  - title: "Tag"
+    url: https://rainyforest23.github.io/tags/
