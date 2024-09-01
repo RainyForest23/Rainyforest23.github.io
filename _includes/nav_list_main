@@ -5,99 +5,99 @@
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label }}</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            📂 <span style="font-family:'MaruBury';">total </style> <span style="font-family:'Coming Soon';">{{sum}}</style> <span style="font-family:'Cafe24Oneprettynight';">posts</style> 
+            🗂️ <span style="font-family:'MaruBuri';">total </style> <span style="font-family:'Coming Soon';">{{sum}}</style> <span style="font-family:'Cafe24Oneprettynight';">posts</style> 
       </li>
       <li>
-        <span class="nav__sub-title">Languages</span>
+        <span class="nav__sub-title">📂Languages</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Java" %}
-                        <li><a href="/categories/java" class="">Java ({{category[1].size}})</a></li>
+                        <li><a href="/categories/java" class="">📄Java ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "C" %}
-                        <li><a href="/categories/c" class="">C({{category[1].size}})</a></li>
+                        <li><a href="/categories/c" class="">📄C({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
-        <span class="nav__sub-title">Data Structure</span>
+        <span class="nav__sub-title">📂Data Structure</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "dsC" %}
-                        <li><a href="/categories/dsc" class="">C 자료구조 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/dsc" class="">📄C 자료구조 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "dsJava" %}
-                        <li><a href="/categories/dsjava" class="">Java 자료구조({{category[1].size}})</a></li>
+                        <li><a href="/categories/dsjava" class="">📄Java 자료구조({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
-        <span class="nav__sub-title">Computer System</span>
+        <span class="nav__sub-title">📂Computer System</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "SystemSW" %}
-                        <li><a href="/categories/systemsw" class="">System SW ({{category[1].size}})</a></li>
+                        <li><a href="/categories/systemsw" class="">📄System SW ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Linux" %}
-                        <li><a href="/categories/linux" class="">Linux ({{category[1].size}})</a></li>
+                        <li><a href="/categories/linux" class="">📄Linux ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "ComputerArch" %}
-                        <li><a href="/categories/computerarch" class="">Computer Architecture({{category[1].size}})</a></li>
+                        <li><a href="/categories/computerarch" class="">📄Computer Architecture({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
-        <span class="nav__sub-title">Coding Test</span>
+        <span class="nav__sub-title">📂Coding Test</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Lc" %}
-                        <li><a href="/categories/leetcode" class="">Leetcode ({{category[1].size}})</a></li>
+                        <li><a href="/categories/leetcode" class="">📄Leetcode ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Bj" %}
-                        <li><a href="/categories/bj" class="">백준({{category[1].size}})</a></li>
+                        <li><a href="/categories/bj" class="">📄백준({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
             
-        <span class="nav__sub-title">PJT</span>
+        <span class="nav__sub-title">📂PJT</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Forest" %}
-                        <li><a href="/categories/forest" class="">SDIJ Forest ({{category[1].size}})</a></li>
+                        <li><a href="/categories/forest" class="">📄SDIJ Forest ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             
-            <span class="nav__sub-title">etc.</span>
+            <span class="nav__sub-title">📂etc.</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Test" %}
-                        <li><a href="/categories/test" class="">테스트용 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/test" class="">📄테스트용 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
-            
+
       </li>
   </ul>
 </nav>
