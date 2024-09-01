@@ -24,34 +24,41 @@
                 {% endfor %}
             </ul>
 
-        <span class="nav__sub-title">CS</span>
+        <span class="nav__sub-title">Data Structure</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "DataStructure" %}
-                        <li><a href="/categories/datastructure" class="">자료구조 ({{category[1].size}})</a></li>
+                    {% if category[0] == "dsC" %}
+                        <li><a href="/categories/dsc" class="">C 자료구조 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Computer System" %}
-                        <li><a href="/categories/computersys" class="">컴퓨터구조({{category[1].size}})</a></li>
+                    {% if category[0] == "dsJava" %}
+                        <li><a href="/categories/dsjava" class="">Java 자료구조({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
-        <span class="nav__sub-title">Web</span>
+        <span class="nav__sub-title">Computer System</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Html" %}
-                        <li><a href="/categories/html" class="">HTML ({{category[1].size}})</a></li>
+                    {% if category[0] == "SystemSW" %}
+                        <li><a href="/categories/systemsw" class="">System SW ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "CSS" %}
-                        <li><a href="/categories/css" class="">CSS({{category[1].size}})</a></li>
+                    {% if category[0] == "Linux" %}
+                        <li><a href="/categories/linux" class="">Linux ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "ComputerArch" %}
+                        <li><a href="/categories/computerarch" class="">Computer Architecture({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
