@@ -2,7 +2,7 @@
 published: true
 title: "AWS Database 핵심 개념 정리 (RDS, DynamoDB)"
 last_modified_at: 2026-04-14
-categories: AWS
+categories: [Cloud, ACC-AWS-handson]
 tags:
     - RDS
     - DynamoDB

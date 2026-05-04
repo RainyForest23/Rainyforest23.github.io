@@ -2,7 +2,7 @@
 published: true
 title: "AWS Storage 핵심 개념 정리 (S3, CloudFront)"
 last_modified_at: 2026-04-07
-categories: AWS
+categories: [Cloud, ACC-AWS-handson]
 tags:
     - S3
     - CloudFront

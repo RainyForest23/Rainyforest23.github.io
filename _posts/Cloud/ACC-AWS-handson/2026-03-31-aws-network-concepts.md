@@ -2,7 +2,7 @@
 published: true
 title: "AWS 네트워크 핵심 개념 정리 (Route 53, VPC, NAT Gateway, Bastion Host, NACL)"
 last_modified_at: 2026-03-31
-categories: AWS
+categories: [Cloud, ACC-AWS-handson]
 tags:
     - Route53
     - VPC
