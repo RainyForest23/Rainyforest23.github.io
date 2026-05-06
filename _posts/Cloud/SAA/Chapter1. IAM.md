@@ -1,0 +1,91 @@
+## I. IAM (Identity and Access Management)
+
+User, Group을 생성하는 <u>*Global 서비스</u>
+(Global 서비스 : 리전을 선택하지 않고, 리전 전역에 적용되는)
+
+처음 계정을 생성하면 그 계정은 보통 Root Account 임.
+이 Root Account 는 Default로 공유X, 웬만하면 사용 X
+User 만들어서 admin 부여하여 사용하는 것을 권장함
+
+User는 Group으로 묶어 관리할 수 있고, 
+Group에 Permission을 걸어 편하게 권한을 관리할 수 있다. 
+
+Group 안에는 반드시 User만 넣을 수 있고, Group을 넣을 수는 없다.
+한명의 User는 여러 Group에 속할 수 있다. 
+
+
+### IAM Policies Structure
+- Version : 정책 버전, YYYY-MM-DD 형식
+- Id : identifier for policies (optional)
+- Statement
+	- Sid : identifier for Statement
+	- Effect : Whether the statements Allows or Denies access (Allow/Deny)
+	- Principle : account/user/role to which this policies applied to
+	- Action : list of actions this policy allows or denies
+	- Resource : list of resources to which the action applied to
+	- Condition : (optional) 이 정책이 발생할 수 있는 제약조건
+
+## IAM 방어 매커니즘
+### 1. Password Policy
+### 2. IAM MFA (Multi Factor Authentication)
+What’s MFA?
+→ password (you know) + security device (you have)
+
+그렇다면, AWS에서 제공하고 있는 MFA devices option은?
+- Virtual MFA device
+	- 하나의 디바이스에서 여러 개의 MFA 토큰을 지원하기 때문에, 여러 IAM 계정으로 로그인할 수 있다. 
+- Universal 2nd Factor (U2F) Security Key
+	- Physical Device (ex. YubiKey)
+	- 하나의 키로 여러 Root/IAM 계정을 지원
+- Hardware TOTP token
+	- 제조사가 제공하는 물리적 OTP 기기
+
+---
+
+## II. AWS 접근 방법
+
+AWS에 접근하는 방법은 3가지가 있다.
+
+1. **AWS Management Console** : 웹 브라우저로 접근. password + MFA
+2. **AWS CLI** : 터미널로 접근. Access Key로 인증
+3. **AWS SDK** : 코드(Python, Java 등)로 접근. Access Key로 인증
+
+> Access Key = Access Key ID + Secret Access Key  
+> Root Account의 Access Key는 절대 공유하지 말 것.
+
+---
+
+## III. IAM Roles
+
+AWS 서비스(EC2, Lambda 등)가 다른 AWS 서비스에 접근할 때 사용하는 권한.  
+사람(User)이 아니라 **서비스 자체**에 권한을 부여하는 개념.
+
+대표적인 예시:
+- EC2 Instance Roles
+- Lambda Function Roles
+- Roles for CloudFormation
+
+---
+
+## IV. IAM 보안 도구
+
+### 1. IAM Credentials Report (계정 수준)
+- 계정 내 **모든 유저**의 자격증명 상태를 CSV로 다운로드
+- 마지막 로그인, 패스워드 변경일, MFA 여부 등 확인 가능
+
+### 2. IAM Access Advisor (유저 수준)
+- 특정 유저에게 부여된 권한 중 **마지막으로 사용된 서비스와 시각**을 보여줌
+- 최소 권한 원칙(Least Privilege) 적용 시 유용
+
+---
+
+## V. IAM Best Practices
+
+- Root Account는 초기 설정 이후 사용하지 않는다.
+- 한 명의 실제 사람 = 한 명의 AWS User (계정 공유 금지)
+- User는 Group에 넣고, Group에 Policy를 부여한다.
+- **강력한 Password Policy** + **MFA** 를 반드시 활성화한다.
+- AWS 서비스에 권한을 줄 때는 User 대신 **IAM Role**을 사용한다.
+- CLI/SDK 사용 시 Access Key를 코드에 하드코딩하지 않는다.
+- IAM Credentials Report / Access Advisor로 정기적으로 권한을 점검한다.
+- **Least Privilege Principle**: 필요한 최소한의 권한만 부여한다.
