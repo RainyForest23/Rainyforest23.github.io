@@ -80,6 +80,22 @@
             </ul>
 
             
+        <span class="nav__sub-title">📂Cloud</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "ACC-AWS-handson" %}
+                        <li><a href="/categories/acc-aws-handson" class="">  📄ACC-AWS Hands-on ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "SAA" %}
+                        <li><a href="/categories/saa" class="">  📄SAA ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
         <span class="nav__sub-title">📂PJT</span>
             <ul>
                 {% for category in site.categories %}
