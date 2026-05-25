@@ -108,6 +108,8 @@ echo "4294967296" | sudo tee /sys/fs/cgroup/nodejs.slice/memory.max
 
 ## Step 2: Data Collection Pipeline
 
+> With the environment set up, it's time to actually measure power. Three loggers each capture a different layer of data — skip any one of them and the attribution calculation becomes incomplete.
+
 Three loggers run in parallel during each experiment, capturing different layers of data:
 
 ```
@@ -219,6 +221,8 @@ python3 scripts/measurement/rpict_logger.py \
 
 ## Step 3: Energy Attribution Model
 
+> With data in hand, it's time to answer: "who used how much electricity?" The key insight is that you can't just split it evenly — different hardware resources behave differently. Understand that first, then the code will make sense.
+
 This is the core of the project. Given the collected measurements, **how much energy should be attributed to each workload?**
 
 ![Energy Attribution Model Overview](/image/capstone/fig1-model-overview.png)
@@ -243,22 +247,24 @@ Based on LPDDR4 specifications, we use **0.2 W/GB**.
 
 ### 3-2. Formal Model
 
-System energy decomposes as:
+The structure is simple: **measure the total, then split by contribution**. Here's how that translates into equations.
+
+First, split the system's total energy by resource type:
 
 $$E^{sys} = E^{cpu} + E^{gpu} + E^{mem} + E^{sto} + E^{other}$$
 
-Energy attributed to workload $w_i$:
+Then, for each workload $w_i$:
 
-**CPU** (utilization-proportional):
+**CPU** — "If you used X% of the CPU, you pay X% of the CPU energy":
 $$E^{cpu}_{w_i} = E^{cpu}_W \cdot \frac{U^{cpu}_i}{\sum_j U^{cpu}_j}$$
 
-**GPU** (allocation base + activity):
+**GPU** — "Pay for what you reserved (allocation) plus what you actually computed (utilization)":
 $$E^{gpu}_{w_i} = E^{gpu}_{idle} \cdot a_i + (E^{gpu} - E^{gpu}_{idle}) \cdot \frac{U^{gpu}_i}{\sum_j U^{gpu}_j}$$
 
-**Memory** (allocation-proportional):
+**Memory** — "Pay for what you hold, not what you touch":
 $$E^{mem}_{w_i} = E^{mem}_{idle} \cdot \frac{m_i}{M}$$
 
-**Energy conservation** (attributed sum equals measured system energy):
+**Sanity check** — workload sum + baseline must equal total measured energy:
 $$E^{sys} = E^{baseline} + \sum_{i=1}^{n} E_{w_i}$$
 
 ### 3-3. Implementation: `extract_phase3_data.py`
@@ -310,6 +316,8 @@ def process_data(data_dir, rpict_data, phases=None):
 ---
 
 ## Step 4: Running the Full Pipeline
+
+> Everything from Steps 1–3 connects here. Run these commands in order once, and you get results end-to-end.
 
 ### 4-1. Install Dependencies
 
@@ -368,6 +376,13 @@ python3 scripts/analysis/comprehensive_analysis.py
 
 ## Results: Proving the Unfairness with Numbers
 
+### The Full Picture: Experiment Timeline
+
+The figure below shows the entire experiment as a single time-series. From left to right: idle → solo execution → concurrent execution. Notice how power spikes the moment any AI workload starts.
+
+![Full Experiment Time-Series Power Profile](/image/capstone/fig3-timeseries-power.png)
+*Fig. 3 — The instant ResNet kicks off, GPU power jumps from ~15W to ~150W. The right side shows concurrent execution phases where two workloads overlap.*
+
 ### Solo Execution: Energy Profiles
 
 ![Solo Workload System Power](/image/capstone/fig4-solo-system-power.png)
@@ -413,17 +428,37 @@ This accuracy is achieved using **only existing OS interfaces** — RAPL, nvidia
 
 ## Lessons Learned
 
-**1. RPICT timestamp misalignment**
+These are the pain points we hit. If you're setting up something similar, knowing these in advance will save you hours.
 
-Runs 2–6 showed wall power identical to baseline — timestamps between the main server and Raspberry Pi were misaligned due to clock drift. Fix: enable NTP sync on both machines; use Run 1 as the AC power reference.
+---
 
-**2. Missing wall power in AI+AI concurrent runs**
+**🔴 Issue 1 — RPICT timestamp misalignment**
 
-Wall power was zero for YOLO+ResNet, YOLO+GPT2, and ResNet+GPT2. The RPICT measurement missed these time windows. Fix: estimated values visually from Fig. 6.
+| | |
+|--|--|
+| **Symptom** | Runs 2–6: wall power reads identical to baseline (~57W) regardless of workload |
+| **Cause** | Clock drift between the main server and Raspberry Pi caused timestamp mismatch during log alignment |
+| **Fix** | `sudo timedatectl set-ntp true` on both machines; use Run 1 data as the AC power reference |
 
-**3. Paper values vs. raw data discrepancy**
+---
 
-The paper reports Node.js system power as 64W, but raw data gives 77.9W. The difference stems from experimental conditions (frequency settings, run number). We use raw data values in this post.
+**🔴 Issue 2 — Wall power missing in AI+AI concurrent runs**
+
+| | |
+|--|--|
+| **Symptom** | `wall_W = 0` for YOLO+ResNet, YOLO+GPT2, ResNet+GPT2 combinations |
+| **Cause** | RPICT logger stopped responding during the time window those pairs were running |
+| **Fix** | Read approximate values from Fig. 6 visually (averaged from adjacent intervals) |
+
+---
+
+**🟡 Issue 3 — Paper values vs. raw data discrepancy**
+
+| | |
+|--|--|
+| **Symptom** | Paper states Node.js system power = 64W; raw data shows 77.9W |
+| **Cause** | Paper cites a specific run under fixed-frequency conditions; raw data is a 6-run average |
+| **Fix** | This blog uses raw data values (6-run average) for reproducibility |
 
 ---
 
